@@ -1,18 +1,31 @@
-import { Routes, Route } from "react-router-dom";
-import TodoList from "./pages/TodoList";
-import TodoCreate from "./pages/TodoCreate";
-import TodoEdit from "./pages/TodoEdit";
+// src/App.jsx
+import React from 'react'
+import { Routes, Route, Link, Navigate } from 'react-router-dom'
+import TodoList from './pages/TodoList'
+import TodoCreate from './pages/TodoCreate'
+import TodoEdit from './pages/TodoEdit'
 
-function App() {
+export default function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<TodoList />} />
-        <Route path="/create" element={<TodoCreate />} />
-        <Route path="/edit/:id" element={<TodoEdit />} />
-      </Routes>
-    </>
-  );
-}
+      <nav className="nav">
+        <div className="nav-inner">
+          <Link to="/todos" className="brand">Todo App</Link>
+          <div className="nav-links">
+            <Link to="/todos">Todos</Link>
+            <Link to="/todos/create">Create</Link>
+          </div>
+        </div>
+      </nav>
 
-export default App;
+      <main>
+        <Routes>
+          <Route path="/" element={<Navigate to="/todos" replace />} />
+          <Route path="/todos" element={<TodoList />} />
+          <Route path="/todos/create" element={<TodoCreate />} />
+          <Route path="/todos/:id/edit" element={<TodoEdit />} />
+        </Routes>
+      </main>
+    </>
+  )
+}
